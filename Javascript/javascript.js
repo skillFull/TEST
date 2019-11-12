@@ -6,8 +6,6 @@ let users = [
     { name: 'Петя', age: 21 },
 ];
 
-
-
 function sortUsersByKey(keyForSorting) {
     users = users.sort(function (a, b) {
         if (a[keyForSorting] < b[keyForSorting]) {
@@ -18,18 +16,9 @@ function sortUsersByKey(keyForSorting) {
         }
         return 0;
     });
-    newTable();
-}
-
-
-function newTable() {
-    while (tableBody.firstChild) {
-        tableBody.removeChild(tableBody.firstChild);
-    }
+    tableBody.innerHTML = "";
     render();
 }
-
-
 
 const tableBody = document.getElementById('table-body')
 function render() {
@@ -38,7 +27,6 @@ function render() {
         tableBody.appendChild(renderTableTr(user, index));
     })
 }
-
 
 function renderTableTr(user, idx) {
     const tr = document.createElement('tr');
@@ -54,17 +42,26 @@ render();
 
 const sortBlockElement = document.getElementsByClassName('sortBlock')[0];
 
+// sortBlockElement.addEventListener('click', (event) => {
+//     const eventButtonClassName = event.target.className;
+//     debugger
+//     switch (eventButtonClassName) {
+//         case 'nameSortButton':
+//             sortUsersByKey('name')
+//             break;
+//         case 'ageSortButton':
+//             sortUsersByKey('age')
+//             break;
+//         default:
+//             break;
+//     }
+// })
+
 sortBlockElement.addEventListener('click', (event) => {
-    const eventButtonClassName = event.target.className;
-    debugger
-    switch (eventButtonClassName) {
-        case 'nameSortButton':
-            sortUsersByKey('name')
-            break;
-        case 'ageSortButton':
-            sortUsersByKey('age')
-            break;
-        default:
-            break;
+    if (event.target.className == "name") {
+        sortUsersByKey("name");
     }
-})
+    if (event.target.className == "age") {
+        sortUsersByKey("age");
+    }
+});
